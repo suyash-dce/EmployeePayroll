@@ -1,5 +1,6 @@
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class EmployeePayRollData {
 	public int id;
@@ -8,6 +9,8 @@ public class EmployeePayRollData {
 	public LocalDate startDate;
 	public double basicPay;
 	public char gender;
+	private int company_id;
+	private List<String> departmentName;
 
 	public EmployeePayRollData(int id, String name, double salary) {
 		this.id = id;
@@ -22,8 +25,25 @@ public class EmployeePayRollData {
 		this.startDate = date.toLocalDate();
 	}
 
+	public EmployeePayRollData(int id, String name, double basicPay, Date date, char gender, int company_id,
+			List<String> departmentName) {
+		this.id = id;
+		this.name = name;
+		this.basicPay = basicPay;
+		this.startDate = date.toLocalDate();
+		this.company_id = company_id;
+		this.departmentName = departmentName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	@Override
 	public String toString() {
-		return "id:" + id + " name: " + name + " Salary: " + salary;
+		return "EmployeePayRollData [id=" + id + ", name=" + name + ", salary=" + salary + ", startDate=" + startDate
+				+ ", basicPay=" + basicPay + ", gender=" + gender + ", company_id=" + company_id + ", departmentName="
+				+ departmentName + "]";
 	}
 
 	@Override
@@ -35,7 +55,16 @@ public class EmployeePayRollData {
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeePayRollData other = (EmployeePayRollData) obj;
-		if (Double.doubleToLongBits(basicPay) != Double.doubleToLongBits(other.basicPay))
+		if (Double.doubleToLongBits(basic_pay) != Double.doubleToLongBits(other.basic_pay))
+			return false;
+		if (company_id != other.company_id)
+			return false;
+		if (departmentName == null) {
+			if (other.departmentName != null)
+				return false;
+		} else if (!departmentName.equals(other.departmentName))
+			return false;
+		if (gender != other.gender)
 			return false;
 		if (id != other.id)
 			return false;
@@ -54,8 +83,32 @@ public class EmployeePayRollData {
 		return true;
 	}
 
-	public String getName() {
-		return name;
+	public int getcompany_id() {
+		return company_id;
+	}
+
+	public void setcompany_id(int company_id) {
+		this.company_id = company_id;
+	}
+
+	public List<String> getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(List<String> departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public double getBasic_pay() {
+		return basicPay;
 	}
 
 	public LocalDate getStartDate() {
@@ -65,7 +118,7 @@ public class EmployeePayRollData {
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
