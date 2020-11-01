@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bridgelabz.employee.EmployeePayrollException.ExceptionType;
 
@@ -35,7 +37,7 @@ public class EmployeePayrollDBService {
 	}
 
 	public List<EmployeePayRollData> readData() {
-		String sql = "SELECT * FROM employee_payroll";
+		String sql = "SELECT * FROM employee_payroll;";
 		return getEmployeePayrollList(sql);
 	}
 
@@ -121,5 +123,20 @@ public class EmployeePayrollDBService {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public Map<String,Double> getEmpDataGroupByGender(String column,String operation){
+		Map<String,Double>dataByGenderMap=new HashMap<>();
+		String sql= String.format("SELECT gender, %s(%s) FROM employee_payroll GROUP BY gender;",operation,column );
+		try (Connection connection=getConnection()){
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				dataByGenderMap.put(resultSet.getString(1), resultSet.getDouble(2));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return dataByGenderMap;
 	}
 }
