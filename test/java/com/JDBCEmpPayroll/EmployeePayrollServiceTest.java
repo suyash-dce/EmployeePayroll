@@ -24,7 +24,7 @@ public class EmployeePayrollServiceTest {
 		assertEquals(5, empPayrollList.size());
 		System.out.println(empPayrollList);
 	}
-	
+
 	@Ignore
 	@Test
 	public void givenNewSalary_WhenUpdated_ShouldSyncWithDB() throws SQLException {
@@ -77,13 +77,21 @@ public class EmployeePayrollServiceTest {
 		assertEquals(2, empPayrollDataByGenderMap.get("M"), 0.0);
 		assertEquals(3, empPayrollDataByGenderMap.get("F"), 0.0);
 	}
-	
-	
+
+	@Ignore
 	@Test
-	public void givenNewEmployee_WhenAdded_ShouldSyncWithDB() throws EmployeePayrollException{
+	public void givenNewEmployee_WhenAdded_ShouldSyncWithDB() throws EmployeePayrollException {
 		empPayrollService.readEmployeePayrollData(IOService.DB_IO);
-		empPayrollService.addEmployeePayrollData("Harshit", 200000.00, "Finance", "2016-02-01", "M");
-		boolean isSynced= empPayrollService.isEmpPayrollSyncedWithDB("Harshit");
+		empPayrollService.addEmployeePayrollData("Harshit", 200000.00, "2016-02-01", "M");
+		boolean isSynced = empPayrollService.isEmpPayrollSyncedWithDB("Harshit");
+		assertTrue(isSynced);
+	}
+
+	@Test
+	public void givenNewEmployee_WhenAddedInTwoTables_ShouldSyncWithDB() throws EmployeePayrollException, SQLException {
+		empPayrollService.readEmployeePayrollData(IOService.DB_IO);
+		empPayrollService.addEmployeeAndPayrollData("Harshit", 200000.00, "2016-02-01", "M");
+		boolean isSynced = empPayrollService.isEmpPayrollSyncedWithDB("Harshit");
 		assertTrue(isSynced);
 	}
 }
