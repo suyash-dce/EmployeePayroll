@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.bridgelabz.employee.EmployeePayRollService.IOService;
+import com.bridgelabz.employee.EmployeePayrollException.ExceptionType;
 
 public class EmployeePayRollService {
 	public enum IOService {
@@ -107,5 +109,45 @@ public class EmployeePayRollService {
 
 	private EmployeePayRollData getEmployeePayrollData(String name) {
 		return employeePayrollList.stream().filter(e -> e.getName().equals(name)).findFirst().orElse(null);
+	}
+
+	public Map<String, Double> getSumOfDataGroupedByGender(IOService ioService, String column)
+			throws EmployeePayrollException {
+		if (ioService == IOService.DB_IO)
+			return employeePayrollDBService.getEmpDataGroupByGender(column, "SUM");
+		else
+			throw new EmployeePayrollException("Wrong IO type", ExceptionType.WRONG_IO_TYPE);
+	}
+
+	public Map<String, Double> getAvgOfDataGroupedByGender(IOService ioService, String column)
+			throws EmployeePayrollException {
+		if (ioService == IOService.DB_IO)
+			return employeePayrollDBService.getEmpDataGroupByGender(column, "AVG");
+		else
+			throw new EmployeePayrollException("Wrong IO type", ExceptionType.WRONG_IO_TYPE);
+	}
+
+	public Map<String, Double> getMINOfDataGroupedByGender(IOService ioService, String column)
+			throws EmployeePayrollException {
+		if (ioService == IOService.DB_IO)
+			return employeePayrollDBService.getEmpDataGroupByGender(column, "MIN");
+		else
+			throw new EmployeePayrollException("Wrong IO type", ExceptionType.WRONG_IO_TYPE);
+	}
+
+	public Map<String, Double> getMAXOfDataGroupedByGender(IOService ioService, String column)
+			throws EmployeePayrollException {
+		if (ioService == IOService.DB_IO)
+			return employeePayrollDBService.getEmpDataGroupByGender(column, "MAX");
+		else
+			throw new EmployeePayrollException("Wrong IO type", ExceptionType.WRONG_IO_TYPE);
+	}
+
+	public Map<String, Double> getCountOfDataGroupedByGender(IOService ioService, String column)
+			throws EmployeePayrollException {
+		if (ioService == IOService.DB_IO)
+			return employeePayrollDBService.getEmpDataGroupByGender(column, "COUNT");
+		else
+			throw new EmployeePayrollException("Wrong IO type", ExceptionType.WRONG_IO_TYPE);
 	}
 }
