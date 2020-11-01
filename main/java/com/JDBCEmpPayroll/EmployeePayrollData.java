@@ -6,7 +6,7 @@ public class EmployeePayRollData {
 	public String name;
 	public double salary;
 	public LocalDate startDate;
-	public double basic_pay;
+	public double basicPay;
 	public char gender;
 
 	public EmployeePayRollData(int id, String name, double salary) {
@@ -15,10 +15,10 @@ public class EmployeePayRollData {
 		this.salary = salary;
 	}
 
-	public EmployeePayRollData(int id, String name, double basic_pay, Date date) {
+	public EmployeePayRollData(int id, String name, double basicPay, Date date) {
 		this.id = id;
 		this.name = name;
-		this.basic_pay = basic_pay;
+		this.basicPay = basicPay;
 		this.startDate = date.toLocalDate();
 	}
 
@@ -35,7 +35,7 @@ public class EmployeePayRollData {
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeePayRollData other = (EmployeePayRollData) obj;
-		if (Double.doubleToLongBits(basic_pay) != Double.doubleToLongBits(other.basic_pay))
+		if (Double.doubleToLongBits(basicPay) != Double.doubleToLongBits(other.basicPay))
 			return false;
 		if (id != other.id)
 			return false;
@@ -66,6 +66,22 @@ public class EmployeePayRollData {
 		this.startDate = startDate;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public void setBasic_pay(double basicPay) {
+		this.basicPay = basicPay;
+	}
+
 	public char getGender() {
 		return gender;
 	}
