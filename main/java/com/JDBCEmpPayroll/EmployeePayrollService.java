@@ -166,5 +166,9 @@ public class EmployeePayRollService {
 		if(employeePayrollData==null)
 			throw new EmployeePayrollException("No data found",ExceptionType.NO_DATA_FOUND);
 	}
-
+	
+	public void addEmployeeAndPayrollData(String name, Double salary, String startDate, String gender)
+			throws EmployeePayrollException, SQLException {
+		employeePayrollList.add(employeePayrollDBService.addNewEmployeeToDB(name, salary, startDate, gender));
+	}
 }
