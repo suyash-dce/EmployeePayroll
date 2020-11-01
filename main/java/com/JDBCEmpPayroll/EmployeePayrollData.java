@@ -1,11 +1,13 @@
+import java.sql.Date;
 import java.time.LocalDate;
 
-public class EmployeePayrollData {
+public class EmployeePayRollData {
 	public int id;
 	public String name;
 	public double salary;
 	public LocalDate startDate;
 	public double basic_pay;
+	public char gender;
 
 	public EmployeePayRollData(int id, String name, double salary) {
 		this.id = id;
@@ -63,5 +65,12 @@ public class EmployeePayrollData {
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+	
+	public char getGender() {
+		return gender;
+	}
 
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
 }
