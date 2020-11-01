@@ -167,8 +167,8 @@ public class EmployeePayRollService {
 			throw new EmployeePayrollException("No data found",ExceptionType.NO_DATA_FOUND);
 	}
 	
-	public void addEmployeeAndPayrollData(String name, Double salary, String startDate, String gender)
+	public void addEmployeeAndPayrollData(String name, Double salary, String startDate, String gender,int company_id,List<String>department)
 			throws EmployeePayrollException, SQLException {
-		employeePayrollList.add(employeePayrollDBService.addNewEmployeeToDB(name, salary, startDate, gender));
+		employeePayrollList.add(employeePayrollDBService.addNewEmployeeToDB(name, salary, startDate, gender,company_id,department));
 	}
 }
