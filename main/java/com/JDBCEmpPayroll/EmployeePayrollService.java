@@ -171,4 +171,12 @@ public class EmployeePayRollService {
 			throws EmployeePayrollException, SQLException {
 		employeePayrollList.add(employeePayrollDBService.addNewEmployeeToDB(name, salary, startDate, gender,company_id,department));
 	}
+	
+	public void removeEmployee(int empId) throws SQLException,EmployeePayrollException {
+		try {
+			employeePayrollDBService.removeEmployeeFromDB(empId);
+		}catch (EmployeePayrollException e) {
+			e.printStackTrace();
+		}
+	}
 }
