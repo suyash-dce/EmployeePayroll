@@ -18,14 +18,12 @@ public class EmployeePayrollServiceTest {
 		empPayrollList = empPayrollService.readEmployeePayrollData(IOService.DB_IO);
 	}
 
-	@Ignore
 	@Test
 	public void givenEmpPayrollDB_WhenRetrieved_ShouldMatchEmpCount() {
 		assertEquals(5, empPayrollList.size());
 		System.out.println(empPayrollList);
 	}
 
-	@Ignore
 	@Test
 	public void givenNewSalary_WhenUpdated_ShouldSyncWithDB() throws SQLException {
 		EmployeePayRollService empPayRollService = new EmployeePayRollService();
@@ -35,7 +33,6 @@ public class EmployeePayrollServiceTest {
 		assertTrue(isSynced);
 	}
 
-	@Ignore
 	@Test
 	public void givenDateRange_WhenRetrievedEmployee_ShouldReturnEmpCount() throws EmployeePayrollException {
 		EmployeePayRollService empPayRollService = new EmployeePayRollService();
@@ -46,7 +43,6 @@ public class EmployeePayrollServiceTest {
 		assertEquals(4, empPayrollList.size());
 	}
 
-	@Ignore
 	@Test
 	public void givenEmployeeDB_WhenRetrievedSum_ShouldReturnSumByGender() throws EmployeePayrollException {
 		empPayrollDataByGenderMap = empPayrollService.getSumOfDataGroupedByGender(IOService.DB_IO, "basicPay");
@@ -54,7 +50,6 @@ public class EmployeePayrollServiceTest {
 		assertEquals(6000000, empPayrollDataByGenderMap.get("F"), 0.0);
 	}
 
-	@Ignore
 	@Test
 	public void givenEmployeeDB_WhenRetrievedAvg_ShouldReturnAvgByGender() throws EmployeePayrollException {
 		empPayrollDataByGenderMap = empPayrollService.getAvgOfDataGroupedByGender(IOService.DB_IO, "basicPay");
@@ -62,7 +57,6 @@ public class EmployeePayrollServiceTest {
 		assertEquals(3000000, empPayrollDataByGenderMap.get("F"), 0.0);
 	}
 
-	@Ignore
 	@Test
 	public void givenEmployeeDB_WhenRetrievedMaxMin_ShouldReturnMaxByGender() throws EmployeePayrollException {
 		empPayrollDataByGenderMap = empPayrollService.getMAXOfDataGroupedByGender(IOService.DB_IO, "basicPay");
@@ -70,7 +64,6 @@ public class EmployeePayrollServiceTest {
 		assertEquals(3000000, empPayrollDataByGenderMap.get("F"), 0.0);
 	}
 
-	@Ignore
 	@Test
 	public void givenEmployeeDB_WhenRetrievedCount_ShouldReturnCountByGender() throws EmployeePayrollException {
 		empPayrollDataByGenderMap = empPayrollService.getCountOfDataGroupedByGender(IOService.DB_IO, "id");
@@ -78,7 +71,6 @@ public class EmployeePayrollServiceTest {
 		assertEquals(3, empPayrollDataByGenderMap.get("F"), 0.0);
 	}
 
-	@Ignore
 	@Test
 	public void givenNewEmployee_WhenAdded_ShouldSyncWithDB() throws EmployeePayrollException {
 		empPayrollService.readEmployeePayrollData(IOService.DB_IO);
@@ -87,7 +79,6 @@ public class EmployeePayrollServiceTest {
 		assertTrue(isSynced);
 	}
 	
-	@Ignore
 	@Test
 	public void givenNewEmployee_WhenAddedInTwoTables_ShouldSyncWithDB() throws EmployeePayrollException, SQLException {
 		empPayrollService.readEmployeePayrollData(IOService.DB_IO);
@@ -105,5 +96,11 @@ public class EmployeePayrollServiceTest {
 		empPayrollService.addEmployeeAndPayrollData("Harshit", 200000.00, "2016-02-01", "M", 501, depts);
 		boolean isSynced = empPayrollService.isEmpPayrollSyncedWithDB("Harshit");
 		assertTrue(isSynced);
+	}
+	
+	@Test
+	public void givenEmployeeId_WhenDeletedUsing_ShouldSyncWithDB() throws EmployeePayrollException, SQLException{
+		empPayrollService.removeEmployee(5);
+		assertEquals(5,empPayrollList.size());
 	}
 }
