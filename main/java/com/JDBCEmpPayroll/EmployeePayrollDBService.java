@@ -239,4 +239,14 @@ public class EmployeePayrollDBService {
 		}
 		return employeePayrollData;
 	}
+	
+	public void removeEmployeeFromDB(int empId) throws EmployeePayrollException, SQLException{
+		String sql=String.format("UPDATE employee_payroll SET active = false WHERE id= '%s'",empId);
+		try(Connection connection=getConnection()){
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
+		}catch (SQLException e) {
+			throw new EmployeePayrollException("Wrong SQL or field given",ExceptionType.WRONG_SQL);
+		}
+	}
 }
